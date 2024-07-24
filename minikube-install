@@ -78,3 +78,13 @@ $ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 $ minikube version
 
 So, we have successfully performed minikube installation on Ubuntu 22.04 LTS.
+
+To create a 2 node cluster on minikube:
+
+$ minikube start --nodes 2 -p local-cluster --driver=docker
+
+This command create a 2 nodes, ie., master and worker nodes with driver as docker engine. 
+
+To check the status of the cluster, use the below command.
+
+$ minikube status -p local-cluster
