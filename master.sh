@@ -30,10 +30,10 @@ kubectl cluster-info
 kubectl get no
 kubectl get po -A
 
-# misc
+# miscellenous
 
 # If you missed copying the join command, execute the following command in the master node
-## kubeadm token create --print-join-command
+## (run as root user) kubeadm token create --print-join-command
 
 # To label worker nodes, replace <node01>
 ## kubectl label node <node01> node-role.kubernetes.io/worker=worker
