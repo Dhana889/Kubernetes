@@ -32,7 +32,7 @@ Kubernetes provides you with:
 - A Cluster is a group of Nodes, consists of Master<>Node architecture.
 - Kubernetes helps to solve some of the basic problems in other containers applications, such as single host, auto-scaling, auto-healing and enterprise level support.
 
-K8s Architecture:
+# K8s Architecture:
 
 A node is a representation of a single machine in a cluster (we can simply view these machines as a set of CPU and RAM). A node can be a virtual machine, a physical machine in a data center hosted on a cloud provider like Azure/AWS.
 
@@ -58,7 +58,7 @@ This a Dataplane is the one which executing the actions.
 
 kubectl command is a line tool that interacts with kube-apiserver and send commands to the master node. Each command is converted into an API call.
 
-Kubernetes Concepts
+# Kubernetes Concepts
 
 Making use of Kubernetes requires understanding the different abstractions it uses to represent the state of the system, such as services, pods, volumes, namespaces, and deployments.
 
@@ -90,26 +90,38 @@ spec:
 ```
 
 $ kubectl create -f pod.yaml		// to create a pod
+
 $ kubectl get pods 			// to see pods info
+
 $ kubectl get pods -o wide		// to see pods ip address as well
+
 $ curl <pod ip address>			// This command will show nginx welcome page on html version
+
 $ kubectl delete pod nginx 		// to delete a pod using NAME
+
 $ kubectl logs nginx			// to view logs of a pod
+
 $ kubectl describe pod nginx		// to debug a pod
+
 $ kubectl get pods			// to list all pods
+
 $ kubectl get deploy			// to list all deployments
+
 $ kubectl get rs			// to list all replica sets
+
 $ kubectl get all			// to list all resources
+
 $ kubectl get all -A			// to list all resources in all the namespace
+
 $ kubectl get pods -w			// to watch the pods in live
 
-Difference between Container - Pod - Deployment:
+# Difference between Container - Pod - Deployment:
 
 - Containers are a packaging system that allows developers to store everything they need to run an application, like runtimes, binary codes, and runtimes, in a single place.
 - Pods in DevOps refer to the smallest deployable units of computing that can be created and managed in Kubernetes. They are a group of one or more containers, with shared storage and network resources, and a specification for how to run the containers.
 - A Deployment provides declarative updates for Pods and ReplicaSets.
 
-Network Policies:
+# Network Policies:
 
 Kubernetes provides NetworkPolicy API for managing network policies in the cluster. This resource is applied to selected namespaces and may contain rules for limiting access of one application to another. It also provides means for configuring accessibility of specific pods, environments (namespaces), or IP-address blocks.
 
@@ -141,7 +153,7 @@ Kubernetes clusters require to allocate non-overlapping IP addresses for Pods, S
 
 ![image](https://github.com/user-attachments/assets/d4523b38-f351-4135-bb0e-c820523cfbc9)
 
-Kubernetes Service:
+# Kubernetes Service:
 	
 In Kubernetes, a Service is a method for exposing a network application that is running as one or more Pods in your cluster.
 
@@ -157,13 +169,13 @@ Kubernetes Service types allow you to specify what kind of Service you want.
 
 The available type values and their behaviors are:
 
-ClusterIP - Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default that is used if you don't explicitly specify a type for a Service. You can expose the Service to the public internet using an Ingress or a Gateway.
+* ClusterIP - Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default that is used if you don't explicitly specify a type for a Service. You can expose the Service to the public internet using an Ingress or a Gateway.
 
-NodePort - Exposes the Service on each Node's IP at a static port (the NodePort). To make the node port available, Kubernetes sets up a cluster IP address, the same as if you had requested a Service of type: ClusterIP.
+* NodePort - Exposes the Service on each Node's IP at a static port (the NodePort). To make the node port available, Kubernetes sets up a cluster IP address, the same as if you had requested a Service of type: ClusterIP.
 
-LoadBalancer - Exposes the Service externally using an external load balancer. Kubernetes does not directly offer a load balancing component; you must provide one, or you can integrate your Kubernetes cluster with a cloud provider.
+* LoadBalancer - Exposes the Service externally using an external load balancer. Kubernetes does not directly offer a load balancing component; you must provide one, or you can integrate your Kubernetes cluster with a cloud provider.
 
-ExternalName - Maps the Service to the contents of the externalName field (for example, to the hostname api.foo.bar.example). The mapping configures your cluster's DNS server to return a CNAME record with that external hostname value. No proxying of any kind is set up.
+* ExternalName - Maps the Service to the contents of the externalName field (for example, to the hostname api.foo.bar.example). The mapping configures your cluster's DNS server to return a CNAME record with that external hostname value. No proxying of any kind is set up.
 
 The type field in the Service API is designed as nested functionality - each level adds to the previous. However there is an exception to this nested design. You can define a LoadBalancer Service by disabling the load balancer NodePort allocation.
 
@@ -183,28 +195,7 @@ Namespaces:
 
 In Kubernetes, namespaces provide a mechanism for isolating groups of resources within a single cluster. Namespaces are intended for use in environments with many users spread across multiple teams, or projects. 
 
-# kubectl get namespace
-
-If the pod failed with the ErrImagePull status. The reason is Kubernetes tries to pull the image specified in deployment.yml, but this image is neither in the minikube docker registry nor in the public Docker registry.
-
-# To point your shell to minikube’s docker-daemon, run:
-# eval $(minikube -p minikube docker-env)
-
-Build the image once again, so that it’s installed in the minikube registry, instead of the local one:
-
-> docker build -t dhana/sample-app .
-
-In your yaml file, add command and args lines:
-
-containers:
-      - name: sample-app
-        image: dhana/sample-app
-        command: [ "sleep" ]
-        args: [ "infinity" ]
-
-And recreate the job once again:
-
-> kubectl create -f deploymnet.yml
+$ kubectl get namespace
 
 ConfigMaps:
 
