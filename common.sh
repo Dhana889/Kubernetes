@@ -5,13 +5,11 @@
 set -euxo pipefail
 
 # Kuernetes Version 1.30
+sudo apt-get update -y
 
 # disable swap
 sudo swapoff -a
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
-
-# keeps the swaf off during reboot
-sudo apt-get update -y
 
 # Configure persistent loading of modules
 sudo tee /etc/modules-load.d/k8s.conf <<EOF
