@@ -28,9 +28,9 @@ Kubernetes provides you with:
 
 * Designed for extensibility Add features to your Kubernetes cluster without changing upstream source code.
 
-> Kubernetes is basically a Cluster in nature.
-> A Cluster is a group of Nodes, consists of Master<>Node architecture.
-> Kubernetes helps to solve some of the basic problems in other containers applications, such as single host, auto-scaling, auto-healing and enterprise level support.
+- Kubernetes is basically a Cluster in nature.
+- A Cluster is a group of Nodes, consists of Master<>Node architecture.
+- Kubernetes helps to solve some of the basic problems in other containers applications, such as single host, auto-scaling, auto-healing and enterprise level support.
 
 K8s Architecture:
 
@@ -40,19 +40,19 @@ What are the components present in Master node of K8s.
 
 This is Controlplane is the one which controlling the actions.
 
-> API server - It is the central management entity that receives all REST requests for modifications to pods, services, replication sets/controllers and others, serving as frontend to the cluster. 
-> Scheduler - Helps schedule the pods on the various nodes based on resource utilization.
-> etcd - Distributed key value storage, which used to store K8s cluster data such as number of pods, their state, namespace, etc. It is only accessible from API server for security reasons. 
-> Controller manager - Runs a number of distinct controller processes in the background to regulate the shared state of the cluster and perform routine tasks. When a change in a service configuration occurs, the controller spots the change and starts working towards the new desired state.
-> Cloud controller manager - Responsible for managing controller processed with dependencies on the underlying cloud provider. 
+* API server - It is the central management entity that receives all REST requests for modifications to pods, services, replication sets/controllers and others, serving as frontend to the cluster. 
+* Scheduler - Helps schedule the pods on the various nodes based on resource utilization.
+* etcd - Distributed key value storage, which used to store K8s cluster data such as number of pods, their state, namespace, etc. It is only accessible from API server for security reasons. 
+* Controller manager - Runs a number of distinct controller processes in the background to regulate the shared state of the cluster and perform routine tasks. When a change in a service configuration occurs, the controller spots the change and starts working towards the new desired state.
+* Cloud controller manager - Responsible for managing controller processed with dependencies on the underlying cloud provider. 
 
 What are the components present in Worker node of K8s.
 
 This a Dataplane is the one which executing the actions.
 
-> Kubelet -  Manage containers and maintain service availability
-> Kube-proxy - Maintains network rules for forwarding connections for endpoints associated with services.
-> Container run-time - such as Containerd, cri-o, dockershim, etc..
+* Kubelet -  Manage containers and maintain service availability
+* Kube-proxy - Maintains network rules for forwarding connections for endpoints associated with services.
+* Container run-time - such as Containerd, cri-o, dockershim, etc..
 
 ![image](https://github.com/user-attachments/assets/18aa8aec-9990-4b01-840c-95ab7f9269d9)
 
