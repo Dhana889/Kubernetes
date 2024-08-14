@@ -1,7 +1,5 @@
 # Kubernetes
 
-Kubernetes:
-
 Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery
 
 Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. 
@@ -10,25 +8,25 @@ Kubernetes provides you with a framework to run distributed systems resiliently.
 
 Kubernetes provides you with:
 
-Service discovery and load balancing Kubernetes can expose a container using the DNS name or using their own IP address. If traffic to a container is high, Kubernetes is able to load balance and distribute the network traffic so that the deployment is stable.
+* Service discovery and load balancing Kubernetes can expose a container using the DNS name or using their own IP address. If traffic to a container is high, Kubernetes is able to load balance and distribute the network traffic so that the deployment is stable.
 
-Storage orchestration Kubernetes allows you to automatically mount a storage system of your choice, such as local storages, public cloud providers, and more.
+* Storage orchestration Kubernetes allows you to automatically mount a storage system of your choice, such as local storages, public cloud providers, and more.
 
-Automated rollouts and rollbacks You can describe the desired state for your deployed containers using Kubernetes, and it can change the actual state to the desired state at a controlled rate. For example, you can automate Kubernetes to create new containers for your deployment, remove existing containers and adopt all their resources to the new container.
+* Automated rollouts and rollbacks You can describe the desired state for your deployed containers using Kubernetes, and it can change the actual state to the desired state at a controlled rate. For example, you can automate Kubernetes to create new containers for your deployment, remove existing containers and adopt all their resources to the new container.
 
-Automatic bin packing You provide Kubernetes with a cluster of nodes that it can use to run containerized tasks. You tell Kubernetes how much CPU and memory (RAM) each container needs. Kubernetes can fit containers onto your nodes to make the best use of your resources.
+* Automatic bin packing You provide Kubernetes with a cluster of nodes that it can use to run containerized tasks. You tell Kubernetes how much CPU and memory (RAM) each container needs. Kubernetes can fit containers onto your nodes to make the best use of your resources.
 
-Self-healing Kubernetes restarts containers that fail, replaces containers, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
+* Self-healing Kubernetes restarts containers that fail, replaces containers, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
 
-Secret and configuration management Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and SSH keys. You can deploy and update secrets and application configuration without rebuilding your container images, and without exposing secrets in your stack configuration.
+* Secret and configuration management Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and SSH keys. You can deploy and update secrets and application configuration without rebuilding your container images, and without exposing secrets in your stack configuration.
 
-Batch execution In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
+* Batch execution In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
 
-Horizontal scaling Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
+* Horizontal scaling Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 
-IPv4/IPv6 dual-stack Allocation of IPv4 and IPv6 addresses to Pods and Services
+* IPv4/IPv6 dual-stack Allocation of IPv4 and IPv6 addresses to Pods and Services
 
-Designed for extensibility Add features to your Kubernetes cluster without changing upstream source code.
+* Designed for extensibility Add features to your Kubernetes cluster without changing upstream source code.
 
 > Kubernetes is basically a Cluster in nature.
 > A Cluster is a group of Nodes, consists of Master<>Node architecture.
@@ -56,14 +54,9 @@ This a Dataplane is the one which executing the actions.
 > Kube-proxy - Maintains network rules for forwarding connections for endpoints associated with services.
 > Container run-time - such as Containerd, cri-o, dockershim, etc..
 
-
-
-
+![image](https://github.com/user-attachments/assets/18aa8aec-9990-4b01-840c-95ab7f9269d9)
 
 kubectl command is a line tool that interacts with kube-apiserver and send commands to the master node. Each command is converted into an API call.
-
-
-
 
 Kubernetes Concepts
 
@@ -79,11 +72,11 @@ Namespace – a virtual cluster (a single physical cluster can run multiple virt
 
 Deployment – describes the desired state of a pod or a replica set, in a yaml file. The deployment controller then gradually updates the environment (for example, creating or deleting replicas) until the current state matches the desired state specified in the deployment file. For example, if the yaml file defines 2 replicas for a pod but only one is currently running, an extra one will get created. Note that replicas managed via a deployment should not be manipulated directly, only via new deployments.
 
-
-$ minikube start
 $ kubectl get nodes
 $ vi pod.yaml
-	apiVersion: v1
+
+```bash
+apiVersion: v1
 kind: Pod
 metadata:
   	     name: nginx
@@ -93,23 +86,24 @@ spec:
     	        image: nginx:1.14.2
     	ports:
     	    - containerPort: 80
+```
 
 $ kubectl create -f pod.yaml
 $ kubectl get pods 			// to see pods info
 $ kubectl get pods -o wide		// to see pods ip address as well
 
-$ minikube ssh 			// to expose pod to container
-$ curl <pod ip address>		// This command will show nginx welcome page on html version
+$ minikube ssh 				// to expose pod to container
+$ curl <pod ip address>			// This command will show nginx welcome page on html version
 
 $ kubectl delete pod nginx 		// to delete a pod using NAME
 $ kubectl logs nginx			// to view logs of a pod
-$ kubectl describe pod nginx	// to debug a pod
+$ kubectl describe pod nginx		// to debug a pod
 $ kubectl get pods			// to list all pods
 $ kubectl get deploy			// to list all deployments
 $ kubectl get rs			// to list all replica sets
 $ kubectl get all			// to list all resources
 $ kubectl get all -A			// to list all resources in all the namespace
-$ kubectl get pods -w		// to watch the pods in live
+$ kubectl get pods -w			// to watch the pods in live
 
 Difference between Container - Pod - Deployment:
 
@@ -127,26 +121,27 @@ Advantages of using the built-in Kubernetes features together with the Calico AP
 
 Here is the list of NetworkPolicy’s features:
 
-policies are limited to an environment;
-policies are applied to pods marked with labels;
-you can apply rules to pods, environments or subnets;
-the rules may contain protocols, numerical or named ports.
+* policies are limited to an environment;
+* policies are applied to pods marked with labels;
+* you can apply rules to pods, environments or subnets;
+* the rules may contain protocols, numerical or named ports.
 
 And here is how Calico extends these features:
 
-policies can be applied to any object: pod, container, virtual machine or interface;
-the rules can contain the specific action (restriction, permission, logging);
-you can use ports, port ranges, protocols, HTTP/ICMP attributes, IPs or subnets (v4 and v6), any selectors (selectors for nodes, hosts, environments) as a source or a target of the rules;
-also, you can control traffic flows via DNAT settings and policies for traffic forwarding.
+* policies can be applied to any object: pod, container, virtual machine or interface;
+* the rules can contain the specific action (restriction, permission, logging);
+* you can use ports, port ranges, protocols, HTTP/ICMP attributes, IPs or subnets (v4 and v6), any selectors (selectors for nodes, hosts, environments) as a source or a target of the rules;
+* also, you can control traffic flows via DNAT settings and policies for traffic forwarding.
 
 Kubernetes IP address ranges: 
 
 Kubernetes clusters require to allocate non-overlapping IP addresses for Pods, Services and Nodes, from a range of available addresses configured in the following components:
 
-The network plug-in is configured to assign IP addresses to Pods.
-The kube-apiserver is configured to assign IP addresses to Services.
-The kubelet or the cloud-controller-manager is configured to assign IP addresses to Nodes.
+* The network plug-in is configured to assign IP addresses to Pods.
+* The kube-apiserver is configured to assign IP addresses to Services.
+* The kubelet or the cloud-controller-manager is configured to assign IP addresses to Nodes.
 
+![image](https://github.com/user-attachments/assets/d4523b38-f351-4135-bb0e-c820523cfbc9)
 
 Kubernetes Service:
 	
@@ -176,11 +171,12 @@ The type field in the Service API is designed as nested functionality - each lev
 
 Ingress:
 
-	An API object that manages external access to the services in a cluster, typically HTTP. Ingress may provide load balancing, SSL termination and name-based virtual hosting.
+An API object that manages external access to the services in a cluster, typically HTTP. Ingress may provide load balancing, SSL termination and name-based virtual hosting.
 
 Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
 
 
+![image](https://github.com/user-attachments/assets/1069dea8-0afa-40aa-bfdc-18ce95f5343c)
 
 
 In order for the Ingress resource to work, the cluster must have an ingress controller running. Kubernetes as a project supports and maintains AWS, GCE, and nginx ingress controllers.
@@ -190,7 +186,6 @@ Namespaces:
 In Kubernetes, namespaces provide a mechanism for isolating groups of resources within a single cluster. Namespaces are intended for use in environments with many users spread across multiple teams, or projects. 
 
 # kubectl get namespace
-
 
 If the pod failed with the ErrImagePull status. The reason is Kubernetes tries to pull the image specified in deployment.yml, but this image is neither in the minikube docker registry nor in the public Docker registry.
 
@@ -215,7 +210,7 @@ And recreate the job once again:
 
 ConfigMaps:
 
-	A ConfigMap is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume.
+A ConfigMap is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume.
 
 A ConfigMap allows you to decouple environment-specific configuration from your container images, so that your applications are easily portable.
 
@@ -223,14 +218,11 @@ Secrets:
 
 A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in a container image. Using a Secret means that you don't need to include confidential data in your application code.
 
-	Secrets are similar to ConfigMaps but are specifically intended to hold confidential data.
-
-
-
+Secrets are similar to ConfigMaps but are specifically intended to hold confidential data.
 
 RBAC:
 
-	Kubernetes RBAC is a key security control to ensure that cluster users and workloads have only the access to resources required to execute their roles. It is important to ensure that, when designing permissions for cluster users, the cluster administrator understands the areas where privilege escalation could occur, to reduce the risk of excessive access leading to security incidents.
+Kubernetes RBAC is a key security control to ensure that cluster users and workloads have only the access to resources required to execute their roles. It is important to ensure that, when designing permissions for cluster users, the cluster administrator understands the areas where privilege escalation could occur, to reduce the risk of excessive access leading to security incidents.
 
 RoleBinding and ClusterRoleBinding:
 
