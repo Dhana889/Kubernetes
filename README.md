@@ -28,11 +28,11 @@ Kubernetes provides you with:
 
 * Designed for extensibility Add features to your Kubernetes cluster without changing upstream source code.
 
+# K8s Architecture:
+
 - Kubernetes is basically a Cluster in nature.
 - A Cluster is a group of Nodes, consists of Master<>Node architecture.
 - Kubernetes helps to solve some of the basic problems in other containers applications, such as single host, auto-scaling, auto-healing and enterprise level support.
-
-# K8s Architecture:
 
 A node is a representation of a single machine in a cluster (we can simply view these machines as a set of CPU and RAM). A node can be a virtual machine, a physical machine in a data center hosted on a cloud provider like Azure/AWS.
 
