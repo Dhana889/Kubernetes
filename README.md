@@ -73,19 +73,20 @@ Making use of Kubernetes requires understanding the different abstractions it us
 * Deployment – describes the desired state of a pod or a replica set, in a yaml file. The deployment controller then gradually updates the environment (for example, creating or deleting replicas) until the current state matches the desired state specified in the deployment file. For example, if the yaml file defines 2 replicas for a pod but only one is currently running, an extra one will get created. Note that replicas managed via a deployment should not be manipulated directly, only via new deployments.
 
 $ kubectl get nodes
+
 $ vi pod.yaml
 
 ```bash
 apiVersion: v1
 kind: Pod
 metadata:
-  	     name: nginx
+   name: nginx
 spec:
-  	     containers:
-  	     - name: nginx
-    	        image: nginx:1.14.2
-    	ports:
-    	    - containerPort: 80
+   containers:
+    - name: nginx
+      image: nginx:1.14.2
+      ports:
+    	- containerPort: 80
 ```
 
 $ kubectl create -f pod.yaml		// to create a pod
