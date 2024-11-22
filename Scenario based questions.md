@@ -52,3 +52,49 @@ Answer: Node Affinity and Taints/Toleration.
 Answer: Additional containers that runs along with the main containers that extend and enhance the main container. Common use cases are for network proxies and log collection etc.
 
 ![image](https://github.com/user-attachments/assets/3c09c050-03a1-43a4-88f7-97d00f2f89f7)
+
+# What are Services, explain different types of services in Kubernetes?
+
+Answer: Kubernetes Services enables communication between the Pods from within or outside.
+
+* ClusterIP: Facilitates internal communication between the pods within the cluster
+* NodePort: Open a specific port on the node and forward the traffic to pod via service. Ports to choose 30000-32767
+* LoadBalancer: Route the traffic from external to the service. Standard way to expose the application to the internet
+
+# How do we monitor Kubernetes cluster resources?
+
+Answer: Node level metrics, Performance level metrics and Pod level metrics
+
+# How to debug specific container logs? Consider there are 2 containers running inside a single Pod.
+
+Answer: Standard ways to check pod logs is kubectl logs -f pod_name. But if two containers are running inside the same pod, need to specify container_name
+
+* kubectl logs -f pod_name container_name
+
+# What are the different deployment strategies in Kubernetes?
+
+Answer: 
+
+* Rolling update deployment, which is a default deployment strategy in K8, it replaces the pods one by one with the newer version of apps without any cluster downtime.
+
+```
+spec:
+  replicas: 3
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+```
+maxSurge: maxSurge specifies the maximum number (or percentage) of additional pods that can be created above the desired replica count during an update. 
+maxUnavailable: maxUnavailable specifies the maximum number (or percentage) of pods that can be unavailable during an update. 
+
+* Recreate deployment, we can fully scale down the existing application version before we scale up the new application version
+
+# What is DaemonSet, explain use cases of DaemonSet?
+
+Answer: DaemonSet ensures that all Nodes run a copy of a Pod. As nodes to the cluster are added to the cluster, Pods will be added to them.
+
+Use Cases:
+* Running logs collection such as Fluentd and Logstash
+* Node monitoring daemon such as Prometheus, Node exporter
+* Running a cluster storage daemon such as glusterd, ceph
