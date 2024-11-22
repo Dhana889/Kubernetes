@@ -3,7 +3,7 @@
 Answer: Above error might appear while a pulling a container image during deployments.
 
 Possible Reasons for the errors are:
-- Invalid container image or non-existent image
+- Invalid container image/tag or non-existent image
 - Private images without authorization
 
 # CrashLoopBackOff error on while creating a pod
@@ -16,6 +16,10 @@ Possible Reasons for the errors are:
 - Memory limits are too low
 - Wrong command line arguments
 - Bugs and Exceptions
+
+# CreateContainerConfigError error on while creating a pod
+
+Answer: This error appears as a result of a missing Secret or ConfigMap objects, which are typically used to hold configuration details or secrets for multiple pods.
   
 # Recently created Pod status is showing Pending, how to resolve it?
 
@@ -57,6 +61,19 @@ To illustrate this:
 # The Pod created was crashed and the config file (like index.html) was deleted. How to avoid similar events in future?
 
 Answer: By making the volume persistent, any configurations or metadata will be retained when pods are destroyed. 
+
+# Kubernetes Node not ready
+
+Answer:
+- Lack of resources: Insufficient memory, disk space, or processing power can cause a node to become NotReady.
+- Network issues: Problems with network configuration or connectivity can prevent a node from communicating with the rest of the cluster, leading to a NotReady state.
+
+To debug:
+- kubectl describe nodes - Look for conditions, capacity and allocatable:
+- Check the node’s logs for errors or warnings.
+- Observe kubelet logs to see if it reports anything. Like certificate erros, authentication errors etc.
+
+Kubernetes does not automatically create a new node when a node fails. Instead, it attempts to recover the failed node or schedules new pods on available nodes in the same node pool. Persistent node failures require manual intervention to recreate or replace the node.
 
 # Need to provision big data app pods on Big Data Nodes only, and no other application pods should be deployed on this nodes, how to achieve it?
 
