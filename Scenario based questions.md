@@ -1,3 +1,22 @@
+# ImagePullBackOff error on while creating a pod
+
+Answer: Above error might appear while a pulling a container image during deployments.
+
+Possible Reasons for the errors are:
+- Invalid container image or non-existent image
+- Private images without authorization
+
+# CrashLoopBackOff error on while creating a pod
+
+Answer: If the Pod is crashing multiple times in a loop.
+
+Possible Reasons for the errors are:
+- Misconfigurations of Pod
+- Errors in Liveness Probe
+- Memory limits are too low
+- Wrong command line arguments
+- Bugs and Exceptions
+  
 # Recently created Pod status is showing Pending, how to resolve it?
 
 Answer: Run the Kubectl describe pod pod_name command. Describe command provides detailed information about the pod, such as its current state, labels, conditions and related events
