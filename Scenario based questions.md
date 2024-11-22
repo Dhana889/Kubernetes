@@ -85,8 +85,8 @@ spec:
       maxSurge: 1
       maxUnavailable: 1
 ```
-maxSurge: maxSurge specifies the maximum number (or percentage) of additional pods that can be created above the desired replica count during an update. 
-maxUnavailable: maxUnavailable specifies the maximum number (or percentage) of pods that can be unavailable during an update. 
+- maxSurge: maxSurge specifies the maximum number (or percentage) of additional pods that can be created above the desired replica count during an update.
+- maxUnavailable: maxUnavailable specifies the maximum number (or percentage) of pods that can be unavailable during an update. 
 
 * Recreate deployment, we can fully scale down the existing application version before we scale up the new application version
 
