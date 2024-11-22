@@ -1,4 +1,4 @@
-# Recently created Pod status is showing Pening, how to resolve it?
+Recently created Pod status is showing Pening, how to resolve it?
 
 Answer: Run the Kubectl describe pod pod_name command. Describe command provides detailed information about the pod, such as its current state, labels, conditions and related events
 Somme common reasons for Pod status showing as Pending:-
