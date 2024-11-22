@@ -35,7 +35,7 @@ To illustrate this:
 * A Service exposes port 80 (e.g., port: 80) to clients.
 * The Service forwards incoming traffic on port 80 to the targetPort (e.g., targetPort: 8080) on the container, where the application is running.
 
-# The Pod created was creashed and the config file (like index.html) was deleted. How to avoid similar events in future?
+# The Pod created was crashed and the config file (like index.html) was deleted. How to avoid similar events in future?
 
 Answer: By making the volume persistent, any configurations or metadata will be retained when pods are destroyed. 
 
