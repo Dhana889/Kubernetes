@@ -134,3 +134,36 @@ Use Cases:
 * Running logs collection such as Fluentd and Logstash
 * Node monitoring daemon such as Prometheus, Node exporter
 * Running a cluster storage daemon such as glusterd, ceph
+
+# Node Selector and Node Affinity
+
+Answer: Node Selectors are defined as a key-value pair in the pod’s specification (PodSpec) and are used to filter nodes based on their labels. The pod will only be scheduled on nodes that have all the specified label-value pairs.
+
+- kubectl label nodes <node_name> <key>=<value>  // Adding labels from command line
+- kubectl edit node <node_name>   // Adding labels by editing node yaml manifest
+
+Node Affinity: Node affinity is a set of rules that the Kubernetes scheduler uses to determine where a pod can be placed. It is similar to the nodeSelector parameter but offers more flexibility and functionality.
+
+- requiredDuringSchedulingIgnoredDuringExecution
+- preferredDuringSchedulingIgnoredDuringExecution
+
+# Kubernetes Network Policy
+
+Answer: A fundamental security feature in Kubernetes that enable fine-grained control over network traffic between pods and other network endpoints within a cluster.
+
+- Network Policies use selectors to identify the pods or namespaces that the policy applies to. Selectors can be based on labels, namespace, or IP addresses.
+```
+ingress:
+  - from:
+    - ipBlock:
+        cidr: 172.17.0.0/16
+        except:
+        - 172.17.1.0/24
+    - namespaceSelector:
+        matchLabels:
+          project: myproject
+    - podSelector:
+        matchLabels:
+          role: frontend
+```
+
