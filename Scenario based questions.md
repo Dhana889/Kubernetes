@@ -166,4 +166,78 @@ ingress:
         matchLabels:
           role: frontend
 ```
+# Resource Sharing
 
+Answer: Use the combiination of Resource Quotas and Requests/limits to put constraints on resource usage.
+
+- Resource quotas in Kubernetes are a way to limit the amount of resources that can be consumed by a namespace or a set of resources. They provide constraints that limit aggregate resource consumption per namespace, ensuring fair and efficient resource utilization among multiple users or teams.
+
+- Resource Requests and Limits are used to control the allocation of resources such as CPU and memory to containers.
+
+# How to diagnose OOMKilled Pods
+
+Answer: A thread dump and Heap dump can help diagnose efficiency issues in a Java application. it’s used to analyze the OutOfMemoryError errors in Java.
+
+- The thread dump contains the snapshot of all threads in a running Java program at a specific instant. A thread is the smallest part of a process that helps a program to operate efficiently by running multiple tasks concurrently.
+
+- Heap Dump: During runtime, the JVM creates the heap, which contains references to objects in use in a running Java application. The heap dump contains a saved copy of the current state of all objects in use at runtimne
+
+# Cluster Upgrades
+
+Answer: It is always recommended to test the behaviour of your application against new the Kubernetes version in a non-prod environment, before updating your production environment.
+
+Steps to upgrade the cluster as well as migration of applications to worker node from v1.14 to v1.15.
+
+* Upgrade Control Plane
+* Upgrade kube-proxy version
+* Upgrade CoreDns version
+* Upgrade Amazon VPC CNI version
+* Upgrade Cluster AutoScaler version
+* Apply pod disruptions budget (pdb)
+* Edit Deployment for application
+
+To update the EKS worker node, new Auto-scaling Group(ASG) with v1.15 of worker nodes needs to be created with a lifecycle=1.15 label. After creating a new worker node, we need to apply Pod Disruption Budget (PDB) to all our applications which will help 100 percent availability of our pod in case any disruption. We are using NodeSelector to migrate the application from version 1.14 to 1.15. Once the application is migrated to v1.15, because of cluster autoscaler, worker nodes based on version 1.14 will automatically be scaled down. When all the applications are migrated to v1.15 nodes, v1.14 worker nodes will be reduced to the minimum node count provided in the autoscaling configuration. 
+
+# Pod Distribution Budget
+
+A Pod Disruption Budget (PDB) is a Kubernetes resource that defines the minimum number of replicas of a Deployment that must be available at any given time. It ensures that a certain number of pods remain available and running even during voluntary disruptions, such as:
+
+* Node upgrades or maintenance
+* Rolling updates or rollbacks
+* Scaling changes
+* Pod restarts or failures
+
+By defining a PDB, you can ensure that your applications remain available and resilient during planned or unplanned disruptions, and Kubernetes will automatically manage pod availability to meet the specified threshold.
+
+# Pod Security Admission:
+
+Answer: Pod Security Admission (PSA) is a built-in admission controller in Kubernetes that enforces Pod Security Standards (PSS) at the admission phase, before pods are scheduled or run on a cluster. Its primary purpose is to minimize the potential attack surface within a Kubernetes cluster by enforcing best practices and security standards for pod creation and deployment.
+
+PSA evaluates pod creation and update requests against predefined PSS security profiles, which define the security requirements for pods. These profiles are categorized into three levels:
+
+* Privileged: allows for known privilege escalation and is the “least secure” of the three.
+* Baseline: provides a balanced combination of security and functionality.
+* Restricted: enforces strict security requirements, such as disallowing privilege escalation, and is the “most secure” of the three.
+
+PSA can operate in three modes:
+
+* Enforce: denies pod creation or update requests that violate the configured PSS profile.
+* Audit: logs pod creation or update requests that violate the configured PSS profile, but allows them to proceed.
+* Warn: generates a warning for pod creation or update requests that violate the configured PSS profile, but allows them to proceed.
+
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test-ns
+  labels:
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+```
+
+PSA can be configured at the namespace level using labels, allowing for granular control over pod security policies. Exemptions can also be defined to allow specific pods or workloads to bypass the PSS enforcement.
+
+# Applying cluster-wide policy using AdmissionConfiguration resource
+
+Answer: In addition to applying labels to namespaces to configure policy you can also configure cluster-wide policies and exemptions using the AdmissionConfiguration resource. Using this resource, policy definitions are applied cluster-wide by default and any policy that is applied via namespace labels will take precedence. 
