@@ -241,3 +241,15 @@ PSA can be configured at the namespace level using labels, allowing for granular
 # Applying cluster-wide policy using AdmissionConfiguration resource
 
 Answer: In addition to applying labels to namespaces to configure policy you can also configure cluster-wide policies and exemptions using the AdmissionConfiguration resource. Using this resource, policy definitions are applied cluster-wide by default and any policy that is applied via namespace labels will take precedence. 
+
+# Securing the Kubernetes Environment
+
+Answer:
+
+* Secure API Server: 1. Locate the kube-apiserver pod and modify the yaml manifest. Add TLS cert, key and certificate authority. 2. Additionally, limit the access to Api server by adding cluster role (RBACs) to users or service accounts with get, list, watch permissions.
+* Using RBAC: Role Based Access Control, configure RBACs to users and service accounts at namespace level or cluster level.
+* Network Policies: It is an kubernetes resource object, which provides granular access for pods to communicate over the cluster. Network policies defined by three identifiers IPs/Ports, Namespaces and pods
+* Encrypt data at rest: To encrypt data at rest in Kubernetes, you can use the Kubernetes Encryption Provider feature, which encrypts sensitive data stored in etcd, the Kubernetes cluster's key-value store. The Encryption Provider uses a key management system to manage and store encryption keys.
+* Secure Container Images: Use container images from trusted sources and scan them for vulnerabilities before deployment. To scan images for vulnerabilities you can use simple commands like docker scan --severity high <docker-image-location>
+* Cluster Monitoring: Use tools like Kubernetes Audit Logs and security monitoring solutions to detect and respond to security threats in real-time.
+* Upgrades: Keep the Kubernetes cluster and its components up to date with the latest security patches and updates.
