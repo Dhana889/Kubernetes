@@ -92,18 +92,48 @@ Part 2:
 ![image](https://github.com/user-attachments/assets/41c839d9-4edc-4923-96c8-fd8fb6ff5ac5)
 
 Part 1:
-- ![image](https://github.com/user-attachments/assets/de1595a8-e41f-4f95-a79f-17caec733cbe)
+ ![image](https://github.com/user-attachments/assets/de1595a8-e41f-4f95-a79f-17caec733cbe)
 - kubectl create -f 06-pv.yaml
 - kubectl get pv
 
 Part 2:
-- ![image](https://github.com/user-attachments/assets/be86408a-c0fe-49a6-8b75-5a155cb8cbfa)
+ ![image](https://github.com/user-attachments/assets/be86408a-c0fe-49a6-8b75-5a155cb8cbfa)
 - kubectl create -f 06-pvc.yaml
 - kubectl get pvc -n project-tiger
 
 Part 3:
-- ![image](https://github.com/user-attachments/assets/df336279-cc64-43e1-8463-644f927ba860)
+ ![image](https://github.com/user-attachments/assets/df336279-cc64-43e1-8463-644f927ba860)
 - kubectl create -f 06-deploy.yaml
 - kubectl get deploy -n project-tiger
 
+# CKA Question 7.
+
+![image](https://github.com/user-attachments/assets/947d5ce0-55df-40fa-be8c-a5587dc41e91)
+
+Part 1:
+- kubectl top node
+- echo "kubectl top node" > /opt/course/7/node.sh
+- cat /opt/course/7/node.sh
+- sh /opt/course/7/node.sh
+
+Part 2:
+- kubectl top pods --containers -A
+- echo "kubectl top pods --containers -A" > cat /opt/course/7/pod.sh 
+- cat /opt/course/7/pod.sh
+- sh /opt/course/7/pod.sh
+
+# CKA Question 8.
+
+![image](https://github.com/user-attachments/assets/53014ba3-3f93-46ac-9f7a-09103f67bb76)
+
+- ssh cluster1-controlplane1
+- kubectl get all -n kube-system | grep -i dns
+- kubectl get all -n kube-system | grep -i etcd
+- ls /etc/kubernetes/manifests | grep -i etch = to check for yaml manifests which confirms etch is a static pod
+- kubectl get all -n kube-system | grep -i kube-controller-manager
+- kubectl get all -n kube-system | grep -i kube-scheduler
+- kubectl get all -n kube-system | grep -i kube-apiserver
+- ps aux | grep -i kubelet
+
+![image](https://github.com/user-attachments/assets/61129a0c-ca38-40c1-a469-b0f559e9d184)
 
