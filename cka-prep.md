@@ -137,3 +137,45 @@ Part 2:
 
 ![image](https://github.com/user-attachments/assets/61129a0c-ca38-40c1-a469-b0f559e9d184)
 
+# CKA Question 9.
+
+![image](https://github.com/user-attachments/assets/0dcb4b85-5e8e-4560-8152-669b640ae497)
+
+Part 1:
+- kubectl config use-context k8s-c2-AC
+- ssh cluster2-controlplane1
+- kubeclt get pods -n kube-system | grep -i kube-scheduler
+- cd /etc/kubernetes/manifests
+- mv ./kube-scheduler.yaml ../
+
+Part 2:
+- kubectl run manual-schedule --image=httpd:2.4-alpine --dry-run=client -o yaml > 9-pod1.yaml
+- kubectl create -f 9-pod1.yaml
+- kubectl get pods = Pod status should show pending
+
+Part 3:
+- Edit 9-pod1.yaml and add nodeName: cluster2-controlplane1
+- Apply the changes and make sure the pod manual-schedule is running
+
+Part 4:
+- mv kube-scheduler.yaml /etc/kubernetes/manifests/
+- kubectl get po -n kube-system | grep -i kube-scheduler = to see scheduler is running
+- k run manual-schedule2 --image=httpd:2.4-alpine --dry-run=client -o yaml > 9-pod2.yaml
+- Add nodeName: cluster2-node1
+- Save and apply changes
+- exit
+
+# CKA question 10.
+
+![image](https://github.com/user-attachments/assets/1932dfd6-3694-458d-807f-ab8414219541)
+
+- kubectl get sa -n project-hamster
+- kubectl create sa processor -n project-hamster
+
+- kubectl create role processor -n project-hamster --verb=create --resource=secrets,configmaps
+- kubectl create rolebinding processor -n project-hamspter --serviceaccount=project-hamster:processor --role=processor
+![image](https://github.com/user-attachments/assets/186dd12e-b064-42ce-9ed2-2bd9c785f64f)
+
+- Create the role and rolebinding from yaml manifests
+- To confirm the role for service account, run the following command
+- kubectl auth can-i create secret --as=system:serviceaccount:project-hamster:processor -n project-hamster
