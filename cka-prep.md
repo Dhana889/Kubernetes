@@ -70,3 +70,40 @@ Part 2:
 - k get ep -n default
 - k get pods -n default am-i-ready -o wide
 - k get pods -n default ready-if-service-ready -o wide
+
+# CKA Question 5.
+
+![image](https://github.com/user-attachments/assets/cd675337-8883-443b-bf04-91669300a620)
+
+Part 1:
+- kubectl get pods -A --sort-by=metadata.creationTimestamp
+- echo "kubectl get pods -A --sort-by=metadata.creationTimestamp" > /opt/course/1/find_pods.sh
+- cat /opt/course/1/find_pods.sh
+- sh /opt/course/1/find_pods.sh
+
+Part 2:
+- kubectl get pods -A --sort-by=metadata.uid
+- echo "kubectl get pods -A --sort-by=metadata.uid" > /opt/course/1/find_pods_uid.sh
+- cat /opt/course/1/find_pods_uid.sh
+- sh /opt/course/1/find_pods_uid.sh
+
+# CKA Question 6.
+
+![image](https://github.com/user-attachments/assets/41c839d9-4edc-4923-96c8-fd8fb6ff5ac5)
+
+Part 1:
+- ![image](https://github.com/user-attachments/assets/de1595a8-e41f-4f95-a79f-17caec733cbe)
+- kubectl create -f 06-pv.yaml
+- kubectl get pv
+
+Part 2:
+- ![image](https://github.com/user-attachments/assets/be86408a-c0fe-49a6-8b75-5a155cb8cbfa)
+- kubectl create -f 06-pvc.yaml
+- kubectl get pvc -n project-tiger
+
+Part 3:
+- ![image](https://github.com/user-attachments/assets/df336279-cc64-43e1-8463-644f927ba860)
+- kubectl create -f 06-deploy.yaml
+- kubectl get deploy -n project-tiger
+
+
