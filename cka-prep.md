@@ -165,7 +165,7 @@ Part 4:
 - Save and apply changes
 - exit
 
-# CKA question 10.
+# CKA Question 10.
 
 ![image](https://github.com/user-attachments/assets/1932dfd6-3694-458d-807f-ab8414219541)
 
@@ -179,3 +179,23 @@ Part 4:
 - Create the role and rolebinding from yaml manifests
 - To confirm the role for service account, run the following command
 - kubectl auth can-i create secret --as=system:serviceaccount:project-hamster:processor -n project-hamster
+
+# CKA Question 11.
+
+![image](https://github.com/user-attachments/assets/8cb8dc63-6b2e-4e04-a343-2a6699b3c0fe)
+
+- kubectl get nodes
+- kubectl describe node | grep -i Taints
+
+![image](https://github.com/user-attachments/assets/1bc1c8a9-8b5f-4a32-a498-bceb25969c08)
+
+- Apply the daemonset and check all nodes have 1 copy of pods deployed within them
+
+# CKA Question 12.
+
+![image](https://github.com/user-attachments/assets/96b36ebc-114f-45b0-a3bd-d4c4ab8d5606)
+
+- Apply the below deployment manifests which has pod anti affinity rules
+  
+![image](https://github.com/user-attachments/assets/88da7946-d335-41b7-aaa4-7445539b8d91)
+
