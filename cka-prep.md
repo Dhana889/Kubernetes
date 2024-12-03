@@ -299,3 +299,46 @@ Part 2:
 
 - To confirm run > kubeclt exec -it -n secret secret-pod -- printenv
 
+# CKA Question 20.
+
+![image](https://github.com/user-attachments/assets/a1103589-d9ea-49ad-8b15-6f7f344eb80d)
+
+- ssh cluster3-node2
+- kubeadm version
+- kubelet --version
+- sudo apt-mark unhold kubelet kubectl
+- sudo apt-get update && sudo apt-get install -y kubelet='1.31.*' kubectl='1.31.*'
+- sudo apt-mark hold kubelet kubectl
+- complete steps as per documentation and add the node to cluster using kubeadm join command
+
+# CKA Question 21.
+
+![image](https://github.com/user-attachments/assets/52d01630-b904-4f8c-8e7f-d930c1a921d5)
+- ssh cluster3-controlplane1
+- cd /etc/kubernetes/manifests
+- create my-static-pod
+  ![image](https://github.com/user-attachments/assets/03210e91-9790-466b-a5eb-50317facd59b)
+
+- k expose pod my-static-pod-cluster3-controlplane1 -n default --name=static-pod-service --port=80 --type=NodePort
+- k exec -it my-static-pod-cluster3-controlplane1 -- ping 10.32.0.4
+
+# CKA Question 22.
+
+![image](https://github.com/user-attachments/assets/e991780e-afd7-4363-acdb-f2e13f144e70)
+Part 1:
+- cd /etc/kubernetes/manifests/
+- cat kube-apiserver.yaml | grep -i tls-cert
+- openssl x509 --noout --text -in /etc/kubernetes/pki/apiserver.crt | grep -i valid -A 2
+        Validity
+- Fetch the validity and update /opt/course/22/expiration
+
+Part 2:
+- kubeadm certs check-expiration | grep -i apiserver
+
+Part 3:
+- kubeadm certs renew apiserver
+
+# CKA Question 23.
+
+![image](https://github.com/user-attachments/assets/6ee1216c-51d9-4123-ba62-d132248a6ad0)
+
