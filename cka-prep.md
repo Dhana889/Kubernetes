@@ -199,3 +199,103 @@ Part 4:
   
 ![image](https://github.com/user-attachments/assets/88da7946-d335-41b7-aaa4-7445539b8d91)
 
+# CKA Question 13.
+
+![image](https://github.com/user-attachments/assets/1228dc16-423e-4f11-a2a9-f5b269a9d969)
+
+- Apply the pod manifest and confirm deployment
+![image](https://github.com/user-attachments/assets/335825c1-7023-4111-9af6-72909093caff)
+
+- kubectl exec -it multi-container-playground -c c1 -- printenv | grep -i MY_NODE_NAME
+- kubectl exec -it multi-container-playground -c c2 -- cat /your/vol/path/date.log
+- kubectl logs multi-container-playground -n default -c c3
+
+# CKA Question 14.
+
+![image](https://github.com/user-attachments/assets/86c3c62d-51a4-4ea1-a4e6-e722759a3bdc)
+
+![image](https://github.com/user-attachments/assets/045e62e5-0243-4432-afdc-17d80c44c8fe)
+
+# CKA Question 15.
+
+![image](https://github.com/user-attachments/assets/62b145b7-29d9-4a67-9934-90b270460f5a)
+
+Part 1:
+- kubectl get events -A --sort-by="metadata.creationTimestamp"
+- cat /opt/course/15/cluster_events.sh
+- sh /opt/course/15/cluster_events.sh
+
+Part 2:
+- kubectl get po -n kube-system -o wide | grep -i kube-proxy
+- kubectl delete po kube-proxy-c2s3 -n kube-system
+- kubectl get events -n kube-system | grep -i kube-proxy
+- copy the output into /opt/course/15/pod_kill.log
+
+Part 3:
+- ssh cluster2-node1
+- crictl ps
+- crictl stop container id
+- crictl rm container id
+- exit
+- kubectl get events -n kube-system --sort-by=metadata.creationTimestamp
+- copy the latest events into /opt/course/15/container_kill.log
+
+Do you notice differences in the events both actions caused?
+
+- When killed the pod in part 2, kube-proxy restarted with new name, whereas when killed in crictl containerd, kube-proxy pod name not changed
+
+# CKA Question 16.
+
+![image](https://github.com/user-attachments/assets/f740df1d-a8f6-4ced-804b-d9bd183cb934)
+
+Part 1:
+- kubectl get api-resources
+- kubectl get api-resources --namespaced -o name > /opt/course/16/resources.txt
+
+Part 2:
+- kubectl get ns
+- kubectl get roles -n project-c14 --no-headers | wc -l
+- write into /opt/course/16/crowded-namespace.txt
+
+# CKA Question 17.
+
+![image](https://github.com/user-attachments/assets/4d213635-168a-46d6-b90f-d7c139a7ad10)
+
+Part 1:
+
+- kubectl run tigers-reunite -n project-tiger --image=httpd:2.4.41-alpine --labels="pod=container,container=pod" --dry-run=client -o yaml
+- kubectl get po -n project-tiger tigers-reunite -o wide
+
+Part 2:
+- ssh into worker node
+- crictl ps | grep -i tigers-reunite
+- crictl inspect containerid | grep -i runtimeType
+- Write the output to /opt/course/17/pod-container.txt
+
+Part 3:
+- ssh cluster1-node2 "crictl logs cad6a7b78abc3" &> /opt/course/17/pod-container.log
+- cat /opt/course/17/pod-container.log
+
+# CKA Question 18.
+![image](https://github.com/user-attachments/assets/99302d13-c977-41f7-862a-7a9937bcbc7e)
+
+Part 1:
+- update the kubelet path into /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
+- systemctl daemon-reload && systemctl kubelet restart
+- service kubelet status
+
+Part 2:
+- Now the node is in ready status, update the /opt/course/18/reason.txt
+- Incorrect path '/usr/local/bin/kubelet' set for kubelet in '/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf'
+- Correct path for kubelet '/usr/bin/kubelet' has been set
+- Kubelet restarted
+
+# CKA Question 19.
+
+![image](https://github.com/user-attachments/assets/ed767fff-4008-4410-b3d5-41cc682e4007)
+
+![image](https://github.com/user-attachments/assets/764091fb-6fee-40a8-b758-5935ac7c529a)
+![image](https://github.com/user-attachments/assets/aee8d3ee-2258-4aa7-8293-fce2a2a4b56d)
+
+- To confirm run > kubeclt exec -it -n secret secret-pod -- printenv
+
